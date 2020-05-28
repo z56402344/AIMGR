@@ -271,9 +271,8 @@ function makeWbData(bean) {
 
 //AIH5给客户端的数据，并调用android方法
 function aiH5ToC(type, jsonStr) {
-    _log("aiH5ToC >>> "+typeof(jsonStr));
     var h5ToCJson = JSON.stringify(jsonStr);
-    _log("aiH5ToC >>> h5ToCJson="+h5ToCJson);
+    _log("aiH5ToC >>> type="+type+",typeof(jsonStr)="+typeof(jsonStr)+", jsonStr="+h5ToCJson);
     if (window.android != undefined) {
         window.android.AIAcJs_get(type, jsonStr);
     }
