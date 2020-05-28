@@ -68,7 +68,7 @@ function postNext(ms) {
 //从客户端获取对应的item数据，下条item数据的时间间隔
 function getHandleMessage() {
     _log("getHandleMessage >>> ");
-    aiH5ToC("getItemData")
+    aiH5ToC("getItemData", 0)
     _log("getHandleMessage >>> 1");
 }
 
@@ -114,7 +114,7 @@ function handleMessage(itemJson, ms) {
             handleToH5(pageBean.actime, pageBean.head, pageBean.jsonStr);
             if (!isInitStar) {
                 isInitStar = true;
-                aiH5ToC("initStar", h5ToCData);
+                aiH5ToC("initStar", 0);
             }
         }
     }
