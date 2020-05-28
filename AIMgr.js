@@ -125,7 +125,12 @@ function handleMessage(itemJson, ms) {
 
 //脚本文件中的某些数据需要处理后再toH5
 function handleToH5(acTime, type, dataJson) {
-    var jsonBean = JSON.parse(dataJson);
+    var jsonBean = null;
+    if(typeof(dataJson) == "String"){
+        jsonBean = JSON.parse(dataJson);
+    }else{
+        jsonBean = itemJson;
+    }
     if (type == "pageData") {
         mCurPage = jsonBean.curPage;
         endQT()
