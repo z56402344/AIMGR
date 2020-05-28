@@ -31,7 +31,7 @@ function AIScriptItem(acTime, type, head, jsonStr) {
 }
 
 function start(uid, courseId) {
-    _log("uid="+uid+", courseId="+courseId);
+    _log("start >>> uid="+uid+", courseId="+courseId);
     mDstArray[0] = uid;
     mDstArray[1] = courseId;
     //1.loader 脚本
@@ -73,7 +73,7 @@ function getHandleMessage() {
 
 
 function handleMessage(itemJson, ms) {
-    _log("读取一条数据")
+    _log("handleMessage >>> 读取一次数据，可能包含多条已超时的数据")
     var bean = null;
     if(typeof(itemJson) == "String"){
         bean = JSON.parse(itemJson);
@@ -82,7 +82,7 @@ function handleMessage(itemJson, ms) {
     }
     var pageBean = null;
     while (bean != null) {
-        _log("handleMessage time=" + ms + ", type=" + bean.type + ", actime=" + bean.acTime + ", head=" + bean.head + ", json=" + bean.jsonStr);
+        _log("handleMessage >>> time=" + ms + ", type=" + bean.type + ", actime=" + bean.acTime + ", head=" + bean.head + ", json=" + bean.jsonStr);
         if (bean.type == TYPE_TOH5) {
             if (bean.type == "memberChange") {
                 handleMemberChange(bean)
@@ -99,7 +99,7 @@ function handleMessage(itemJson, ms) {
             if (bean.head == "init") {
                 handleInit(bean);
             } else {
-                toH5(bean.type, bean.jsonStr);
+                toH5(bean.head, bean.jsonStr);
             }
         } else if (bean.type == TYPE_QUESTION) {
 
@@ -260,7 +260,7 @@ function handleInit(bean) {
     var jsonTree = JSON.parse(bean.jsonStr);
     mSrcArray[0] = jsonTree.userId;
     mSrcArray[1] = jsonTree.courseId;
-    _log("录制原用户信息 userId=" + mSrcArray[0] + "， courseId=" + mSrcArray[1]);
+    _log("handleInit >>> 录制原用户信息 userId=" + mSrcArray[0] + "， courseId=" + mSrcArray[1]);
 }
 
 function makeWbData(bean) {
@@ -287,7 +287,7 @@ window.cToAIH5 = function (type, data) {
     }else{
         item = data;
     }
-    _log("type="+type+", data="+JSON.stringify(data));
+    _log("cToAIH5 >>> type="+type+", data="+JSON.stringify(data));
     if (type == "AIInitData") {
         start(item.uid, item.courseID);
     } else if (type == "getItemData") {
@@ -300,7 +300,7 @@ window.cToAIH5 = function (type, data) {
 //客户端要传给教材控制器的数据
 //dataType 0=从H5过来的数据，1=解析脚本的数据
 function toH5(type, data) {
-
+    whindow.comm_type_get(type,data);
 }
 
 //教材控制器传给客户端的数据
