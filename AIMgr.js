@@ -246,16 +246,21 @@ function sendStarToUI(receivers, senderIDStr, starType, star, acTime, senStarTyp
 //老师进入教室时，向客户端抛一条消息
 function handleMemberChange(bean) {
     var item = null;
+    console.log("handleMemberChange >>> 0")
     if(typeof(bean.jsonStr) == "String"){
         item = JSON.parse(bean.jsonStr);
     }else{
         item = bean.jsonStr;
     }
+    console.log("handleMemberChange >>> 1")
     if (item.state == "enter") {
+        console.log("handleMemberChange >>> 2")
         if (item.type == "tea") {
+            console.log("handleMemberChange >>> 3")
             var h5ToCData = {
                 actime: bean.actime
             }
+            console.log("handleMemberChange >>> 4")
             aiH5ToC("teaEnter", h5ToCData)
         }
     }
