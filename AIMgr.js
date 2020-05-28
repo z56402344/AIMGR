@@ -69,7 +69,6 @@ function postNext(ms) {
 function getHandleMessage() {
     _log("getHandleMessage >>> ");
     aiH5ToC("getItemData", 0)
-    _log("getHandleMessage >>> 1");
 }
 
 
@@ -292,7 +291,7 @@ window.cToAIH5 = function (type, data) {
     if (type == "AIInitData") {
         start(item.uid, item.courseID);
     } else if (type == "getItemData") {
-        handleMessage(item.json, item.ms);
+        handleMessage(item.data, item.ms);
     } else {
         fromH5(type, data);
     }
