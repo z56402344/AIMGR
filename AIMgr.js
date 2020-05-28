@@ -245,7 +245,12 @@ function sendStarToUI(receivers, senderIDStr, starType, star, acTime, senStarTyp
 
 //老师进入教室时，向客户端抛一条消息
 function handleMemberChange(bean) {
-    var item = JSON.parse(bean.jsonStr);
+    var item = null;
+    if(typeof(bean.jsonStr) == "String"){
+        item = JSON.parse(bean.jsonStr);
+    }else{
+        item = bean.jsonStr;
+    }
     if (item.state == "enter") {
         if (item.type == "tea") {
             var h5ToCData = {
@@ -300,7 +305,7 @@ window.cToAIH5 = function (type, data) {
 //客户端要传给教材控制器的数据
 //dataType 0=从H5过来的数据，1=解析脚本的数据
 function toH5(type, data) {
-    whindow.comm_type_get(type,data);
+    window.comm_type_get(type,data);
 }
 
 //教材控制器传给客户端的数据
